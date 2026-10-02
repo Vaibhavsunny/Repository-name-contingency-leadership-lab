@@ -204,36 +204,214 @@ export default function App() {
         <CoreDiagram theme="theory"/>
       </section>
 
-      {chapters.map((c,i)=>{
-        const isCase=!!c.caseName;
-        return <section key={c.id} id={`chapter-${c.id}`} className={`scene-section section-${c.theme} ${i===0?"question-section":""}`}>
-          <div className="chapter-content">
-            <div className="chapter-meta"><span>{c.eyebrow}</span>{c.speaker&&<Badge kind="speaker">{c.speaker}</Badge>}</div>
-            <h2>{c.title}</h2>
-            <p className="lead">{c.body}</p>
-            {c.bullets && <ul className="concept-list">{c.bullets.map(x=><li key={x}>{x}</li>)}</ul>}
-            {c.id===1 && <div className="three-worlds"><div><b>CRISIS</b><span>urgency / risk</span></div><div><b>INNOVATION</b><span>ambiguity / experimentation</span></div><div><b>EXPERT TEAM</b><span>capability / autonomy</span></div></div>}
-            {c.id===2 && <div className="evolution"><span>TRAIT</span><b>WHO?</b><span>→</span><span>BEHAVIOUR</span><b>WHAT?</b><span>→</span><span>CONTINGENCY</span><b>UNDER WHAT CONDITIONS?</b></div>}
-            {c.id===3 && <div className="equation"><span>LEADER</span><i>+</i><span>FOLLOWERS</span><i>+</i><span>TASK</span><i>+</i><span>ENVIRONMENT</span><b>↓</b><strong>LEADERSHIP EFFECTIVENESS</strong></div>}
-            {c.id===4 && <MemberPortals onSelect={scrollTo}/>}
-            {c.id===6 && <LpcLab/>}
-            {c.id===7 && <TriangleLab/>}
-            {c.id===8 && <CaseEvidence c={c}/>}
-            {c.id===9 && <div className="mode-switch"><button className="active">ROUTINE OPERATIONS</button><button>HIGH-PRESSURE DISRUPTION</button><p>Structured processes, interdependent operations, formal roles and time pressure create a distinct operating context.</p></div>}
-            {c.id===10 && <CaseEvidence c={c}/>}
-            {c.id===12 && <div className="fit-adapt"><div><span>FIEDLER</span><strong>FIT</strong></div><i>→</i><div><span>HERSEY & BLANCHARD</span><strong>ADAPT</strong></div></div>}
-            {c.id===13 && <div className="s4-grid">{[["S1","DIRECTING","HIGH DIRECTION","LOW SUPPORT"],["S2","COACHING","HIGH DIRECTION","HIGH SUPPORT"],["S3","SUPPORTING","LOW DIRECTION","HIGH SUPPORT"],["S4","DELEGATING","LOW DIRECTION","LOW SUPPORT"]].map(x=><div key={x[0]}><span>{x[0]}</span><b>{x[1]}</b><small>{x[2]} · {x[3]}</small></div>)}</div>}
-            {c.id===14 && <CaseEvidence c={c}/>}
-            {c.id===15 && <CaseEvidence c={c}/>}
-            {c.id===16 && <div className="industry-city">{["HEALTHCARE","MANUFACTURING","TECHNOLOGY","AIRLINES","STARTUPS","RETAIL","EDUCATION","CONSULTING"].map((x,i)=><button key={x} style={{"--h":`${100+i*23}px`} as CSSProperties}><span>{String(i+1).padStart(2,"0")}</span><b>{x}</b><small>{["Emergency coordination","Structured tasks","Innovation","Time-sensitive coordination","Ambiguity","Peak demand","New learners","Experienced teams"][i]}</small></button>)}</div>}
-            {c.id===17 && <div className="comparison"><div><Badge kind="lens">FIEDLER</Badge><h3>FIT</h3><p>Relatively stable orientation · LPC · relations · task structure · position power</p></div><div><Badge kind="analysis">HERSEY-BLANCHARD</Badge><h3>FLEX</h3><p>Adaptive direction/support · follower development/readiness · S1–S4</p></div></div>}
-            {isCase && c.id!==8 && c.id!==10 && c.id!==14 && c.id!==15 && <CaseEvidence c={c}/>}
-            {c.id===11 && <div className="limits"><span>STABLE ORIENTATION</span><span>LPC INTERPRETATION</span><span>VARIABLE COVERAGE</span><span>ORGANISATIONAL COMPLEXITY</span></div>}
-            {c.id===12 && <FollowerLab/>}
-            {c.id===17 && <><div className="manager-check"><b>MANAGERIAL CHECKLIST</b><span>Task · urgency · structure · capability · authority · relations · direction · support</span></div><div className="viva-zone"><p className="eyebrow">VIVA ZONE</p><h3>ASK THE LAB</h3><Viva/></div><div className="glossary-zone"><p className="eyebrow">KEY TERMS</p><h3>GLOSSARY</h3><Glossary/></div></>}
-          </div>
-        </section>
-      ))}
+            {chapters.map((c, i) => {
+        const isCase = !!c.caseName;
+
+        return (
+          <section
+            key={c.id}
+            id={`chapter-${c.id}`}
+            className={`scene-section section-${c.theme} ${
+              i === 0 ? "question-section" : ""
+            }`}
+          >
+            <div className="chapter-content">
+              <div className="chapter-meta">
+                <span>{c.eyebrow}</span>
+                {c.speaker && <Badge kind="speaker">{c.speaker}</Badge>}
+              </div>
+
+              <h2>{c.title}</h2>
+              <p className="lead">{c.body}</p>
+
+              {c.bullets && (
+                <ul className="concept-list">
+                  {c.bullets.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              )}
+
+              {c.id === 1 && (
+                <div className="three-worlds">
+                  <div><b>CRISIS</b><span>urgency / risk</span></div>
+                  <div><b>INNOVATION</b><span>ambiguity / experimentation</span></div>
+                  <div><b>EXPERT TEAM</b><span>capability / autonomy</span></div>
+                </div>
+              )}
+
+              {c.id === 2 && (
+                <div className="evolution">
+                  <span>TRAIT</span><b>WHO?</b><span>→</span>
+                  <span>BEHAVIOUR</span><b>WHAT?</b><span>→</span>
+                  <span>CONTINGENCY</span><b>UNDER WHAT CONDITIONS?</b>
+                </div>
+              )}
+
+              {c.id === 3 && (
+                <div className="equation">
+                  <span>LEADER</span><i>+</i>
+                  <span>FOLLOWERS</span><i>+</i>
+                  <span>TASK</span><i>+</i>
+                  <span>ENVIRONMENT</span>
+                  <b>↓</b>
+                  <strong>LEADERSHIP EFFECTIVENESS</strong>
+                </div>
+              )}
+
+              {c.id === 4 && <MemberPortals onSelect={scrollTo} />}
+              {c.id === 6 && <LpcLab />}
+              {c.id === 7 && <TriangleLab />}
+              {c.id === 8 && <CaseEvidence c={c} />}
+
+              {c.id === 9 && (
+                <div className="mode-switch">
+                  <button className="active">ROUTINE OPERATIONS</button>
+                  <button>HIGH-PRESSURE DISRUPTION</button>
+                  <p>
+                    Structured processes, interdependent operations, formal
+                    roles and time pressure create a distinct operating context.
+                  </p>
+                </div>
+              )}
+
+              {c.id === 10 && <CaseEvidence c={c} />}
+
+              {c.id === 12 && (
+                <div className="fit-adapt">
+                  <div><span>FIEDLER</span><strong>FIT</strong></div>
+                  <i>→</i>
+                  <div><span>HERSEY & BLANCHARD</span><strong>ADAPT</strong></div>
+                </div>
+              )}
+
+              {c.id === 13 && (
+                <div className="s4-grid">
+                  {[
+                    ["S1", "DIRECTING", "HIGH DIRECTION", "LOW SUPPORT"],
+                    ["S2", "COACHING", "HIGH DIRECTION", "HIGH SUPPORT"],
+                    ["S3", "SUPPORTING", "LOW DIRECTION", "HIGH SUPPORT"],
+                    ["S4", "DELEGATING", "LOW DIRECTION", "LOW SUPPORT"],
+                  ].map((x) => (
+                    <div key={x[0]}>
+                      <span>{x[0]}</span>
+                      <b>{x[1]}</b>
+                      <small>{x[2]} · {x[3]}</small>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {c.id === 14 && <CaseEvidence c={c} />}
+              {c.id === 15 && <CaseEvidence c={c} />}
+
+              {c.id === 16 && (
+                <div className="industry-city">
+                  {[
+                    "HEALTHCARE",
+                    "MANUFACTURING",
+                    "TECHNOLOGY",
+                    "AIRLINES",
+                    "STARTUPS",
+                    "RETAIL",
+                    "EDUCATION",
+                    "CONSULTING",
+                  ].map((x, i) => (
+                    <button
+                      key={x}
+                      style={
+                        {
+                          "--h": `${100 + i * 23}px`,
+                        } as CSSProperties
+                      }
+                    >
+                      <span>{String(i + 1).padStart(2, "0")}</span>
+                      <b>{x}</b>
+                      <small>
+                        {
+                          [
+                            "Emergency coordination",
+                            "Structured tasks",
+                            "Innovation",
+                            "Time-sensitive coordination",
+                            "Ambiguity",
+                            "Peak demand",
+                            "New learners",
+                            "Experienced teams",
+                          ][i]
+                        }
+                      </small>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {c.id === 17 && (
+                <div className="comparison">
+                  <div>
+                    <Badge kind="lens">FIEDLER</Badge>
+                    <h3>FIT</h3>
+                    <p>
+                      Relatively stable orientation · LPC · relations · task
+                      structure · position power
+                    </p>
+                  </div>
+
+                  <div>
+                    <Badge kind="analysis">HERSEY-BLANCHARD</Badge>
+                    <h3>FLEX</h3>
+                    <p>
+                      Adaptive direction/support · follower
+                      development/readiness · S1–S4
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {isCase &&
+                c.id !== 8 &&
+                c.id !== 10 &&
+                c.id !== 14 &&
+                c.id !== 15 && <CaseEvidence c={c} />}
+
+              {c.id === 11 && (
+                <div className="limits">
+                  <span>STABLE ORIENTATION</span>
+                  <span>LPC INTERPRETATION</span>
+                  <span>VARIABLE COVERAGE</span>
+                  <span>ORGANISATIONAL COMPLEXITY</span>
+                </div>
+              )}
+
+              {c.id === 12 && <FollowerLab />}
+
+              {c.id === 17 && (
+                <>
+                  <div className="manager-check">
+                    <b>MANAGERIAL CHECKLIST</b>
+                    <span>
+                      Task · urgency · structure · capability · authority ·
+                      relations · direction · support
+                    </span>
+                  </div>
+
+                  <div className="viva-zone">
+                    <p className="eyebrow">VIVA ZONE</p>
+                    <h3>ASK THE LAB</h3>
+                    <Viva />
+                  </div>
+
+                  <div className="glossary-zone">
+                    <p className="eyebrow">KEY TERMS</p>
+                    <h3>GLOSSARY</h3>
+                    <Glossary />
+                  </div>
+                </>
+              )}
+            </div>
+          </section>
+        );
+      })}
 
       <section className="finale scene-section">
         <div className="finale-copy">
